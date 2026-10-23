@@ -1,0 +1,73 @@
+# Project: AI Compute & Token Economics Hub (AdSense + Programmatic SEO Ready)
+
+## Role & Objective
+Act as an expert full-stack developer and technical SEO architect. Build a fast, 100% client-side web application featuring two flagship developer utilities:
+1. **LLM API Cost & Token Calculator** (comparing OpenAI, Anthropic, Google Gemini, DeepSeek, and Meta Llama API providers).
+2. **"Can I Run This LLM?" Local GPU VRAM & Apple Unified Memory Calculator**.
+
+The site must be architected for **Programmatic SEO (pSEO)** (generating dynamic landing pages from a central JSON dataset) and optimized for **Google AdSense approval and high viewability** (sticky sidebar layouts, reserved CLS-safe ad containers, rich below-the-fold documentation, and full legal compliance pages).
+
+## Tech Stack
+- **Framework:** Next.js (App Router, Static Site Generation / SSG for pSEO pages) or React + Vite with client-side routing and pre-rendered meta tags.
+- **Styling:** Tailwind CSS + Lucide React icons (Dark/Light mode toggle, sleek developer-focused aesthetic like Vercel/Linear).
+- **State & Storage:** 100% client-side state with URL query parameter syncing (so users can share exact calculations via link) and `localStorage` for saving custom presets.
+
+---
+
+## Core Feature 1: LLM API Cost & Token Calculator (`/api-calculator`)
+Build an interactive, real-time calculator with the following inputs and outputs:
+- **Live Prompt Tokenizer Estimator:** A textarea where users can paste a sample system prompt or document. Calculate character count, word count, and estimated token count (using ~4 chars/token heuristic for English + code multiplier toggle).
+- **Sliders & Numeric Inputs:**
+  - Expected Requests per Day / Month.
+  - Average Input Tokens per request.
+  - Average Output Tokens per request.
+  - Prompt Cache Hit Rate (%) slider (0% to 100%).
+- **Dynamic Comparison Table & Visual Bar Chart:**
+  - Automatically rank and display exact daily/monthly cost across major models (e.g., GPT-4o, GPT-4o-mini, Claude 3.5 Sonnet, Claude 3.5 Haiku, Gemini 1.5 Pro, Gemini 1.5 Flash, DeepSeek V3/R1).
+  - Show cost breakdown: Input Cost, Cached Input Savings, Output Cost, and Total Monthly Burn.
+  - Include a "Copy Shareable Quote Link" button and "Export to CSV" button.
+
+## Core Feature 2: "Can I Run This LLM?" VRAM Calculator (`/vram-calculator`)
+Build an interactive hardware compatibility and memory calculator:
+- **Inputs:**
+  - Model Parameter Size (Preset buttons: 1.5B, 3B, 7B, 8B, 14B, 32B, 70B, 405B, 671B MoE + custom slider).
+  - Quantization Level (FP16/BF16, Q8_0, Q6_K, Q5_K_M, Q4_K_M, IQ3_XS, 2-bit).
+  - Context Window Length (2k, 4k, 8k, 16k, 32k, 64k, 128k tokens) to calculate KV Cache memory overhead.
+  - System Hardware Selector (e.g., NVIDIA RTX 3060 12GB, RTX 4090 24GB, RTX 5090 32GB, Dual 3090 48GB, Mac M3/M4 Max 64GB/128GB, Mac Studio 192GB).
+- **Formula & Outputs:**
+  - Calculate and visually break down: `Model Weights VRAM` + `KV Cache VRAM` + `Activation/System Overhead (~1.5GB)` = `Total Required Memory (GB)`.
+  - Display a color-coded status badge against the selected hardware:
+    - 🟢 **Runs Comfortably (100% GPU Offload)** + Estimated Tokens/sec speed tier.
+    - 🟡 **Tight Fit (Requires KV Cache Quantization or Partial CPU Offload)**.
+    - 🔴 **Out of Memory (OOM) - Hardware Upgrade Needed**.
+
+---
+
+## Programmatic SEO (pSEO) Architecture
+Create a structured data file (`src/data/seo-pages.json`) containing at least 15 pre-configured high-intent landing page variations that dynamically pre-fill the calculator state and render unique H1s, meta descriptions, and explanatory text. Examples:
+- `/vram-calculator/llama-3-70b-q4-rtx-4090` ("Can an RTX 4090 Run Llama 3 70B in Q4?")
+- `/vram-calculator/deepseek-r1-local-hardware-requirements` ("DeepSeek R1 Local VRAM & GPU Requirements Calculator")
+- `/api-calculator/claude-sonnet-vs-gpt-4o-api-cost` ("Claude Sonnet vs GPT-4o API Pricing & Token Calculator")
+- `/api-calculator/gemini-flash-batch-pricing-estimator` ("Gemini Flash API Cost Calculator for High-Volume Apps")
+Include a searchable directory of all pSEO pages on the homepage and in the footer so search crawlers can index every route within 2 clicks.
+
+---
+
+## AdSense Optimization & "High-Value Content" Layout
+To prevent "Low Value Content" rejections from Google AdSense and maximize RPM without hurting UX:
+1. **CLS-Safe Ad Placeholders:** Create a reusable `<AdSlot id="..." format="horizontal | rectangle | sticky-sidebar" />` component with explicit `min-height` reservations (`min-h-[90px]` for leaderboards, `min-h-[250px]` for rectangles, `min-h-[600px]` for desktop sticky sidebars) labeled clearly so I can drop my AdSense `<ins>` tags in later.
+2. **Ad Placement Strategy:**
+   - **Desktop:** 2-column layout. Left 70% = Interactive Calculator + Documentation. Right 30% = Sticky Sidebar containing a 300x600 `<AdSlot />` and "Popular Comparisons" internal links.
+   - **In-Content:** Place one horizontal `<AdSlot />` cleanly below the calculator results box (with at least 24px margin away from buttons to comply with Google's accidental click policy).
+3. **800+ Words of Dynamic Educational Content Below the Fold:** Below every calculator page, render a well-formatted technical guide containing:
+   - "How LLM Token & VRAM Math Works" (with clear mathematical formulas rendered cleanly).
+   - A comprehensive Reference Table comparing current LLM context windows, pricing, and quantization bits-per-weight.
+   - An interactive **FAQ Accordion** (5+ detailed questions and answers) paired with valid `FAQPage` and `SoftwareApplication` JSON-LD Schema markup in the `<head>`.
+
+## Mandatory Legal & Trust Pages (AdSense Requirement)
+Build functional routes linked in the global footer:
+- `/about` (Mission statement, how our calculations are verified, developer transparency).
+- `/contact` (Working UI contact form + support email display).
+- `/privacy-policy` (Explicitly referencing Google AdSense, DoubleClick DART cookies, third-party vendor cookie usage, and opt-out instructions).
+- `/terms-of-service` (Standard disclaimer that cost and hardware estimates are for informational purposes).
+- Include a static `public/ads.txt` placeholder file and `public/robots.txt` + `sitemap.xml` generator.

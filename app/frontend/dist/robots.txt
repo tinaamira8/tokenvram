@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Ad servers need to crawl pages to serve relevant ads.
+User-agent: Mediapartners-Google
+Allow: /
+
+User-agent: AdsBot-Google
+Allow: /

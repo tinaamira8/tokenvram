@@ -1,0 +1,43 @@
+{
+    "title": "contact_messages",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "integer",
+            "description": "Auto-increment primary key"
+        },
+        "user_id": {
+            "type": "string",
+            "description": "Owner; 'anonymous' for public submissions"
+        },
+        "name": {
+            "type": "string",
+            "maxLength": 120
+        },
+        "email": {
+            "type": "string",
+            "maxLength": 254
+        },
+        "topic": {
+            "type": "string",
+            "maxLength": 40
+        },
+        "message": {
+            "type": "string",
+            "format": "text"
+        },
+        "status": {
+            "type": "string",
+            "maxLength": 20,
+            "default": "new"
+        }
+    },
+    "required": [
+        "id",
+        "user_id",
+        "name",
+        "email",
+        "topic",
+        "message"
+    ]
+}
